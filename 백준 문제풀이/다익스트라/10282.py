@@ -1,5 +1,5 @@
 import sys
-
+import heapq
 K = int(sys.stdin.readline().strip())
 INF = int(1e9)
 
@@ -12,36 +12,30 @@ for i in range(K):
     distance = [INF] * (N+1)
     visited = [False] * (N+1)
 
+
     for j in range(D):
         a, b, s = map(int, sys.stdin.readline().strip().split())
         graph[b].append((a,s))
 
 
-    def get_smallest_node():
-        min_value = INF
-        index = 0
-        for i in range(1, N+1):
-            if distance[i] < min_value and not visited[i]:
-                min_value = distance[i]
-                index = i
-        return index
-
-
     def dijkstra(start):
+        q = []
+        heapq.heappush(q, (0, start))
         distance[start] = 0
-        visited[start] = True
-        for j in graph[start]:
-            distance[j[0]] = j[1]
-        
-        for i in range(N-1):
-            now = get_smallest_node()
-            visited[now] = True
 
-            for j in graph[now]:
-                cost = distance[now] + j[1]
+        while q:
+            cur_cost, now = heapq.heappop(q)
+            if distance[now] < cur_cost:
+                continue
 
-                if cost < distance[j[0]]:
-                    distance[j[0]] = cost
+            for next_node, add_cost in graph[now]:
+                cost = cur_cost + add_cost
+                
+                if cost < distance[next_node]:
+                    distance[next_node] = cost
+                    heapq.heappush(q, (cost, next_node))
+
+
     dijkstra(C)
     answer = 0
     count = 0
