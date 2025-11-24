@@ -1,2 +1,2 @@
 # DailyCoding
-코테
+코테 준비
