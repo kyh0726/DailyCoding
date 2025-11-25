@@ -1,4 +1,5 @@
 import sys
+#qㅂㅈㄷㄹ
 N = int(sys.stdin.readline().strip())
 arr = []
 for i in range(N):
