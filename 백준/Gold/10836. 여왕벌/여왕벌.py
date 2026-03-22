@@ -29,7 +29,7 @@ for _ in range(N):
 
 for i in range(1,M):
     for j in range(1,M):
-        board[i][j] = max(board[i-1][j-1], board[i][j-1], board[i-1][j])
+        board[i][j] = board[i-1][j]
 
 
 for row in board:
